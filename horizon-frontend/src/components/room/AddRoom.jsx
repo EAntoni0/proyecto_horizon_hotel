@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { addRoom} from "../util/ApiFunctions";
+import React, { useState } from "react";
+import { addRoom } from "../util/ApiFunctions";
 import RoomTypeSelector from "../common/RoomTypeSelector";
 
 
@@ -13,17 +13,17 @@ const AddRoom = () => {
 
   });
 
-  const[imagePreview, setImagePreview] = useState("");
-  const[successMessage, setSuccessMessage] = useState("");
-  const[errorMessage, setErrorMessage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleRoomInputChange = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    if(name === "roomPrice"){
-      if(!isNaN(value)){
+    if (name === "roomPrice") {
+      if (!isNaN(value)) {
         value = parseInt(value);
-      }else{
+      } else {
         value = "";
       }
     }
@@ -36,9 +36,9 @@ const AddRoom = () => {
   }
 
   const handleImageChange = (e) => {
-    
+
     const selectedImage = e.target.files[0];
-    setNewRoom({...newRoom, photo: selectedImage});
+    setNewRoom({ ...newRoom, photo: selectedImage });
     setImagePreview(URL.createObjectURL(selectedImage));
 
   }
@@ -57,85 +57,103 @@ const AddRoom = () => {
         setImagePreview("");
         setErrorMessage("");
       } else {
-        setErrorMessage("Failed to add room. Please try again.");
+        setErrorMessage("Error al agregar nueva habitacion.");
       }
     } catch (error) {
-      setErrorMessage(error.message + "Failed to add room. Please try again.");
-      
+      setErrorMessage(error.message);
+
     }
+
+    setTimeout(() => {
+      setSuccessMessage("");
+      setErrorMessage("");
+    }, 3000);
   }
 
   return (
     <>
 
-    <section className="container, mt-5 mb-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8 col-lg-6">
-          <h2 className="mt-5 mb-2">Agregar nueva habitacion</h2>
+      <section className="container, mt-5 mb-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <h2 className="mt-5 mb-2">Agregar nueva habitacion</h2>
 
-          <form onSubmit={handleSubmit} action="">
-          
-            <div className="mb3">
-              <label htmlFor="roomType" className="form-label">
-                Tipo de habitacion
-              </label>
-              <div>
-                <RoomTypeSelector
-                  handleRoomInputChange={handleRoomInputChange}
-                  newRoom={newRoom}/>
+            {successMessage && (
+              <div className="alert alert-success fade show">
+                {successMessage}
               </div>
-            </div>
+            )}
+
+            {errorMessage && (
+              <div className="alert alert-danger fade show">
+                {errorMessage}
+              </div>
+            )}
 
 
-          
-            <div className="mb3">
-              <label htmlFor="roomPrice" className="form-label">
-                Precio de la habitacion
-              </label>
-              <input 
-                className="form-control" 
-                type="number" 
-                name="roomPrice" 
-                id="roomPrice" 
-                value={newRoom.roomPrice} 
-                onChange={handleRoomInputChange} 
-                required
-              />
-            </div>
+            <form onSubmit={handleSubmit} action="">
 
-            <div className="mb3">
-              <label htmlFor="photo" className="form-label">
-                Foto de la habitacion
-              </label>
-              <input 
-                className="form-control" 
-                type="file" 
-                name="photo" 
-                id="photo" 
-                onChange={handleImageChange} 
-              />
-              {imagePreview && (
-                <img src={imagePreview} 
-                alt="foto habitacion" 
-                className="mb-3" 
-                style={{
-                  maxWidth: "400px", 
-                  maxHeight: "200px" 
-                }} />
-              )}
-            </div>
+              <div className="mb3">
+                <label htmlFor="roomType" className="form-label">
+                  Tipo de habitacion
+                </label>
+                <div>
+                  <RoomTypeSelector
+                    handleRoomInputChange={handleRoomInputChange}
+                    newRoom={newRoom} />
+                </div>
+              </div>
 
-            <div className="d-grid d-md-flex mt-2">
-              <button className="btn btn-outline-primary ml-5">
-                Agregar habitacion
-              </button>
-            </div>
 
-          </form>
 
+              <div className="mb3">
+                <label htmlFor="roomPrice" className="form-label">
+                  Precio de la habitacion
+                </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="roomPrice"
+                  id="roomPrice"
+                  value={newRoom.roomPrice}
+                  onChange={handleRoomInputChange}
+                  required
+                />
+              </div>
+
+              <div className="mb3">
+                <label htmlFor="photo" className="form-label">
+                  Foto de la habitacion
+                </label>
+                <input
+                  className="form-control"
+                  type="file"
+                  name="photo"
+                  id="photo"
+                  onChange={handleImageChange}
+                />
+                {imagePreview && (
+                  <img src={imagePreview}
+                    alt="foto habitacion"
+                    className="mb-3"
+                    style={{
+                      maxWidth: "400px",
+                      maxHeight: "200px"
+                    }} />
+                )}
+              </div>
+
+              <div className="d-grid d-md-flex mt-2">
+                <button className="btn btn-outline-primary ml-5">
+                  Agregar habitacion
+                </button>
+              </div>
+
+            </form>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     </>
   );

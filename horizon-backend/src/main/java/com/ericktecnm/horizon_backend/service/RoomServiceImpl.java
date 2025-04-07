@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -37,6 +38,12 @@ public class RoomServiceImpl implements IRoomService {
         }
 
         return roomRepository.save(room); // Cambia esto por la implementación real
+    }
+
+    @Override
+    public List<String> getAllRoomTypes() {
+        // TODO Auto-generated method stub
+        return roomRepository.findDistinctRoomTypes();
     }
 
 

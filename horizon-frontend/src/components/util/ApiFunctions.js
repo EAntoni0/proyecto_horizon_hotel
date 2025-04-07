@@ -11,7 +11,7 @@ export async function addRoom(photo, roomType, roomPrice) {
     forDtata.append('roomType', roomType);
     forDtata.append('roomPrice', roomPrice);
 
-    const response = await api.post('/roomsroom/add/new-', forDtata)
+    const response = await api.post('/rooms/add/new-room', forDtata)
     if (response.status === 201) {
         return true;
 
@@ -26,7 +26,7 @@ export async function addRoom(photo, roomType, roomPrice) {
 // esta funcion es para obtener todos los tipos de habitaciones
 export async function getRoomTypes() {
     try {
-        const response = await api.get('/rooms/room-types');
+        const response = await api.get('/rooms/room/types');
         return response.data;
     }
     catch (error) {

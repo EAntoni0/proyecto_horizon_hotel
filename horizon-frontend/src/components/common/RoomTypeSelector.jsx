@@ -5,7 +5,7 @@ import { getRoomTypes } from "../util/ApiFunctions";
 const RoomTypeSelector = ({handleRoomInputChange, newRoom})=> {
 
     const[roomTypes, setRoomTypes] = useState([""]);
-    const [showNewRoomTypeIput, setShowNewRoomTypesInput] = useState(false);
+    const [showNewRoomTypeInput, setShowNewRoomTypesInput] = useState(false);
     const[newRoomType, setNewRoomType] = useState("");
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom})=> {
                         </option>
                     ))}
                 </select>
-                {showNewRoomTypeIput && (
+                {showNewRoomTypeInput && (
                     <div className="input-group">
                         <input 
                             className="form-control"
