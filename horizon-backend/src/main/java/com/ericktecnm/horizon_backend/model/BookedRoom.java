@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor //constructor sin argumentos usando anotaciones de lombok
 
 //esta clase representa una reserva de habitación
 // y contiene información sobre la reserva, como las fechas de entrada y salida, el nombre del huésped, el correo electrónico, etc.

@@ -20,10 +20,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity // La anotación @Entity indica que esta clase es una entidad JPA y se mapeará a una tabla en la base de datos
+
+// anotaciones de lombok para generar automáticamente los métodos getter y setter
 @Getter
 @Setter
-@AllArgsConstructor
+@AllArgsConstructor // Genera un constructor con todos los atributos de la clase
 
 public class Room {
 

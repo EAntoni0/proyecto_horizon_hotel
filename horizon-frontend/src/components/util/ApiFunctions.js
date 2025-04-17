@@ -33,3 +33,14 @@ export async function getRoomTypes() {
         throw new Error('Failed to fetch room types: ' + error.message);
     }
 }
+
+/* esta funcion recupera todas las habitaciones de la base de datos*/
+
+export async function getAllRooms() {
+    try {
+        const result = await api.get("/rooms/all-rooms")
+        return result.data
+    } catch (error) {
+        throw new Error("Error al buscar habitaciones")
+    }
+}
