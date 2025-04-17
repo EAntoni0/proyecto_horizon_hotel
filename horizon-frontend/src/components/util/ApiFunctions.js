@@ -35,12 +35,22 @@ export async function getRoomTypes() {
 }
 
 /* esta funcion recupera todas las habitaciones de la base de datos*/
-
 export async function getAllRooms() {
     try {
         const result = await api.get("/rooms/all-rooms")
         return result.data
     } catch (error) {
         throw new Error("Error al buscar habitaciones")
+    }
+}
+
+// esta funcion es para eliminar una habitacion de la base de datos
+export async function deleteRoom(roomId){
+    try {
+        const result = await api.delete(`/rooms/delete/room/${roomId}`)
+        return result.data
+    } catch (error) {
+        throw new Error(`Error al eliminar la habitación ${error.message}`);
+        
     }
 }

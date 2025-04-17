@@ -70,4 +70,15 @@ public class RoomServiceImpl implements IRoomService {
         return null;
     }
 
+    @Override
+    public void deleteRoom(Long roomId) {
+        // TODO Auto-generated method stub}
+        Optional<Room> theRoom = roomRepository.findById(roomId);
+        if (theRoom.isPresent()) {
+
+            roomRepository.deleteById(roomId);
+            
+        }
+    }
+
 }

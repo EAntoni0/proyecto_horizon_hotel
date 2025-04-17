@@ -28,8 +28,10 @@ const RoomFilter = ({data = [], setFilteredData}) => {
                 value={filter}
                 onChange={handleSelectChange}>
                 
-                <option value={""}>Seleccione un tipo de habitación para filtrar</option>
-                {roomTypes.map((type, index) => (
+                <option value={""}>Todas las Habitaciones</option>
+                {roomTypes
+                .filter(type => type !== "") // Filtrar tipos vacíos
+                .map((type, index) => (
                     <option key={index} value={type}>
                         {type}
                     </option>
