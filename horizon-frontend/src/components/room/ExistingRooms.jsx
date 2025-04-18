@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { deleteRoom, getAllRooms } from "../util/ApiFunctions";
 import RoomFilter from "../common/RoomFilter";
 import RoomPaginator from "../common/RoomPaginator";
-import { Col } from "react-bootstrap";
-import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
+import { Col, Row } from "react-bootstrap";
+import { FaEdit, FaEye, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 
@@ -86,21 +86,33 @@ const ExistingRooms = () => {
 
     return (
         <>
+            <div className="container col-md-8 col-lg-6">
+                {successMessage && <div className="alert alert-success mt-5">{successMessage}</div>}
+                {errorMessage && <div className="alert alert-danger mt-5">{errorMessage}</div>}
+            </div>
+
             {isloading ? (
                 <p>Cargando habitaciones existentes</p>
             ) : (
                 <>
                     <section className="mt-5 mb-5 container">
-                        <div className="d-flex justify-content-center mb-3 mt-3">
+                        <div className="d-flex justify-content-between mb-3 mt-5">
                             <h2>
                                 Habitaciones existentes
                             </h2>
-
                         </div>
-                        <Col md={6} className="mb-3 mb-md-0">
-                            <RoomFilter data={rooms} setFilteredData={setFilteredRooms} />
+                        <Row>
+                            <Col md={6} className="mb-3 mb-md-0">
+                                <RoomFilter data={rooms} setFilteredData={setFilteredRooms} />
 
-                        </Col>
+                            </Col>
+
+                            <Col md={6} className="d-flex justify-content-end">
+                                <Link to={"/add-room"}>
+                                    <FaPlus /> Agregar Habitacion
+                                </Link>
+                            </Col>
+                        </Row>
 
                         <table className="table table-bodered table-hover">
                             <thead>
@@ -118,16 +130,16 @@ const ExistingRooms = () => {
                                         <td>{room.roomType}</td>
                                         <td>{room.roomPrice}</td>
                                         <td className="gap-2">
-                                            
-                                                <Link to={`/edit-room/${room.id}`}>
-                                                    <span className="btn btn-info btn-sm me-2">
-                                                        <FaEye/>
-                                                    </span>
-                                                    <span className="btn btn-warning btn-sm me-2">
-                                                        <FaEdit/>
-                                                    </span>
-                                                </Link>
-                                            
+
+                                            <Link to={`/edit-room/${room.id}`}>
+                                                <span className="btn btn-info btn-sm me-2">
+                                                    <FaEye />
+                                                </span>
+                                                <span className="btn btn-warning btn-sm me-2">
+                                                    <FaEdit />
+                                                </span>
+                                            </Link>
+
                                             <button
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handleDelete(room.id)}>

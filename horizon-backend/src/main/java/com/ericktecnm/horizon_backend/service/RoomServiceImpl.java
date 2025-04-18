@@ -14,6 +14,7 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ericktecnm.horizon_backend.exception.InternalServerException;
 import com.ericktecnm.horizon_backend.exception.ResourceNotFoundException;
 import com.ericktecnm.horizon_backend.model.Room;
 import com.ericktecnm.horizon_backend.repository.RoomRepository;
@@ -79,6 +80,33 @@ public class RoomServiceImpl implements IRoomService {
             roomRepository.deleteById(roomId);
             
         }
+    }
+
+    @Override
+    public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
+        // TODO Auto-generated method stub
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new ResourceNotFoundException("Habitacion con el id: " + roomId + " no encontrado"));
+
+        if(roomType != null) room.setRoomType(roomType);
+        if(roomPrice != null) room.setRoomPrice(roomPrice);
+        if(photoBytes != null&& photoBytes.length > 0) {
+            // Si la imagen no es nula, la convertimos a un Blob y la almacenamos en la base de datos
+            try {
+                Blob photoBlob = new SerialBlob(photoBytes);
+                room.setPhoto(photoBlob); // Almacena la imagen en la base de datos
+            } catch (SQLException e) {
+                throw new InternalServerException("Error al almacenar la imagen en la base de datos");
+            }
+        }
+
+        return roomRepository.save(room);
+    }
+
+    @Override
+    public Optional<Room> getRoomById(long roomId) {
+        // TODO Auto-generated method stub
+        return Optional.of(roomRepository.findById(roomId).get());
+
     }
 
 }
