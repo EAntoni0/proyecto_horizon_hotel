@@ -68,12 +68,13 @@ body {
   }
 
   .hotel-color{
-    color: rgb(169, 77, 123);
+    /*color importante*/
+    color: rgb(169, 77, 123) !important; 
   }
   .room-price{
-    color:darkgoldenrod;
-    font-family: 'Courier New', Courier, monospace;
-    font-size:medium;
+    color:darkgoldenrod !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size:medium !important;
   }
   .vertical-rule{
     border-left: '0.5px solid black';
